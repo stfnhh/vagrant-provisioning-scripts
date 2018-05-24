@@ -19,6 +19,6 @@ hash ntpdate 2>/dev/null || {
 } > /dev/null 2>&1
 
 hash require 2>/dev/null || {
-  curl --fail --silent --show-error https://raw.githubusercontent.com/stfnhh/vagrant-provisioning-scripts/master/centos/require.sh --output /usr/bin/require
+  curl --fail --silent --show-error https://raw.githubusercontent.com/stfnhh/vagrant-provisioning-scripts/master/centos/require --output /usr/bin/require
   chmod +x /usr/bin/require
 }
