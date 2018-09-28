@@ -1,0 +1,8 @@
+#!/bin/bash
+
+IFS=', ' read -r -a requirements <<< $1
+
+for r in "${requirements[@]}"
+do
+  curl -s "https://raw.githubusercontent.com/stfnhh/vagrant-provisioning-scripts/master/ubuntu/$r" 2>&1 | bash
+done

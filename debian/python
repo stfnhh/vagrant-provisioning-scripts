@@ -1,0 +1,18 @@
+#!/bin/bash
+
+hash python3.6 2>/dev/null || {
+  apt install python3.6 -y
+  alias python=$(which python3.6)
+  echo "alias python=$(which python3.6)" >> /etc/bashrc
+  echo "alias python=$(which python3.6)" >> /home/vagrant/.bashrc
+  echo "alias python=$(which python3.6)" >> /root/.bashrc
+} > /dev/null 2>&1
+
+hash pip3 2>/dev/null || {
+  apt-get install python3-pip libpng-dev gcc -y
+  alias pip=$(which pip3)
+  echo "alias pip=$(which pip3)" >> /etc/bashrc
+  echo "alias pip=$(which pip3)" >> /home/vagrant/.bashrc
+  echo "alias pip=$(which pip3)" >> /root/.bashrc
+  pip3 install virtualenv
+} > /dev/null 2>&1
