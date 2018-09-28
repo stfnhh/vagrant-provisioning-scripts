@@ -1,13 +1,5 @@
 #!/bin/bash
 
-hash python3.6 2>/dev/null || {
-  apt install python3.6 -y
-  alias python=$(which python3.6)
-  echo "alias python=$(which python3.6)" >> /etc/bashrc
-  echo "alias python=$(which python3.6)" >> /home/vagrant/.bashrc
-  echo "alias python=$(which python3.6)" >> /root/.bashrc
-} > /dev/null 2>&1
-
 hash pip3 2>/dev/null || {
   apt-get install python3-pip libpng-dev gcc -y
   alias pip=$(which pip3)
