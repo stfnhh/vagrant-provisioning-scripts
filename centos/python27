@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Use system Python 2.7, just install pip
+
+hash pip 2>/dev/null || {
+  rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm
+  yum install -y python-pip
+  pip install --upgrade pip
+  pip install virtualenv
+} > /dev/null 2>&1
