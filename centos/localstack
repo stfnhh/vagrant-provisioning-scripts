@@ -2,7 +2,6 @@
 
 hash localstack 2>/dev/null || {
 	require jdk python27
-	yum group install -y "Development Tools"
-	yum install -y python-devel
-	pip install localstack
+	yum install -y gcc python-devel
+	runuser -l vagrant -c 'pip install --user localstack'
 }
