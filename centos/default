@@ -11,10 +11,13 @@ hash vim 2>/dev/null || {
   yum install -y vim
 } > /dev/null 2>&1
 
-hash ntpdate 2>/dev/null || {
-  chkconfig ntpd off
-  service ntpd stop
-} > /dev/null 2>&1
+if hash ntpdate 2>/dev/null; then
+  {
+    yum remove -y ntpdate
+    chkconfig ntpd off
+    service ntpd stop
+  } > /dev/null 2>&1
+fi
 
 hash require 2>/dev/null || {
   curl --fail --silent --show-error https://raw.githubusercontent.com/stfnhh/vagrant-provisioning-scripts/master/centos/require --output /usr/bin/require
