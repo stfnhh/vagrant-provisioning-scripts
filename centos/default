@@ -13,9 +13,9 @@ hash vim 2>/dev/null || {
 
 if hash ntpdate 2>/dev/null; then
   {
-    yum remove -y ntpdate
     chkconfig ntpd off
     service ntpd stop
+    yum remove -y ntpdate
   } > /dev/null 2>&1
 fi
 
