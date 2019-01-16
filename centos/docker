@@ -11,4 +11,5 @@ hash docker 2>/dev/null || {
   yum upgrade -y python*
   systemctl enable docker
   systemctl start docker
+  usermod -aG docker vagrant
 } > /dev/null 2>&1
