@@ -3,23 +3,9 @@
 systemctl mask firewalld > /dev/null 2>&1
 systemctl stop firewalld > /dev/null 2>&1
 
-hash git 2>/dev/null || {
-  yum install -y git
-} > /dev/null 2>&1
-
-hash vim 2>/dev/null || {
-  yum install -y vim
-} > /dev/null 2>&1
-
-if hash ntpdate 2>/dev/null; then
-  {
-    chkconfig ntpd off
-    service ntpd stop
-    yum remove -y ntpdate
-  } > /dev/null 2>&1
-fi
-
 hash require 2>/dev/null || {
   curl --fail --silent --show-error https://raw.githubusercontent.com/stfnhh/vagrant-provisioning-scripts/master/centos/require --output /usr/bin/require
   chmod +x /usr/bin/require
 }
+
+require jq,git,vim

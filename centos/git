@@ -1,0 +1,5 @@
+#!/bin/bash
+
+hash git 2>/dev/null || {
+  yum install -y git
+} > /dev/null 2>&1
