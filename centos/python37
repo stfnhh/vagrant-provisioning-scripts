@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+hash python3.7 2>/dev/null || {
+  yum install gcc openssl-devel bzip2-devel libffi-devel -y
+  cd /usr/src
+  wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
+  tar xzf Python-3.7.2.tgz
+  cd Python-3.7.2
+  ./configure --enable-optimizations
+  make altinstall
+  rm /usr/src/Python-3.7.2.tgz
+  /usr/local/bin/pip3.7 install --upgrade pip
+
+  echo "alias pip=$(which pip3.7)" >> /home/vagrant/.bashrc
+  echo "alias python=$(which python3.7)" >> /home/vagrant/.bashrc
+} > /dev/null 2>&1
