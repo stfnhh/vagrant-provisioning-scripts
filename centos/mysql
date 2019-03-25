@@ -1,0 +1,17 @@
+#!/bin/bash
+
+hash mysql 2>/dev/null || {
+  yum localinstall -y https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+  yum install -y mysql-community-server
+  systemctl enable mysqld
+  systemctl start mysqld
+  tp=$(grep 'A temporary password' /var/log/mysqld.log |tail -1 |awk '{split($0,a,": "); print a[2]}')
+  mysql -uroot -p"$tp" -Be "ALTER USER 'root'@'localhost' IDENTIFIED BY 'T3mpt#mp';" --connect-expired-password
+  echo "validate_password.policy=LOW" >> /etc/my.cnf
+  echo "validate_password.length=6" >> /etc/my.cnf
+  echo "bind-address=0.0.0.0" >> /etc/my.cnf
+  systemctl restart mysqld
+  mysql -uroot -p"T3mpt#mp" -Be "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'vagrant';"
+  mysql -uroot -p"vagrant" -Be "USE mysql;UPDATE user SET host='%' WHERE host='localhost';"
+  systemctl restart mysqld
+} > /dev/null 2>&1
