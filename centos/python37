@@ -2,12 +2,12 @@
 
 
 hash python3.7 2>/dev/null || {
-  yum install gcc openssl-devel bzip2-devel libffi-devel sqlite-devel -y
+  yum install gcc openssl-devel bzip2-devel libffi-devel sqlite sqlite-devel -y
   cd /usr/src
   wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
   tar xzf Python-3.7.2.tgz
   cd Python-3.7.2
-  ./configure --enable-optimizations
+  ./configure --enable-optimizations --enable-loadable-sqlite-extensions
   make altinstall
   rm /usr/src/Python-3.7.2.tgz
   /usr/local/bin/pip3.7 install --upgrade pip
