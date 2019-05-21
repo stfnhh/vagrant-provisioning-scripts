@@ -13,8 +13,8 @@ hash python3.7 2>/dev/null || {
   /usr/local/bin/pip3.7 install --upgrade pip
 
   alias python=$(which python3.7)
-  echo "alias python=$(which python3.7)" | tee /etc/bashrc /home/vagrant/.bashrc /root/.bashrc
+  echo "alias python=$(which python3.7)" | tee -a /etc/bashrc /home/vagrant/.bashrc >> /root/.bashrc
 
   alias pip=$(which pip3.7)
-  echo "alias pip=$(which pip3.7)" | tee /etc/bashrc /home/vagrant/.bashrc /root/.bashrc
+  echo "alias pip=$(which pip3.7)" | tee -a /etc/bashrc /home/vagrant/.bashrc  >> /root/.bashrc
 } > /dev/null 2>&1
