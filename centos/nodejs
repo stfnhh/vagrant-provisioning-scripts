@@ -1,11 +1,11 @@
 #!/bin/bash
 
 hash node 2>/dev/null || {
-  nvm_version=$(curl "https://api.github.com/repos/creationix/nvm/releases" | jq -r ".[0].name")
+  nvm_version=$(curl "https://api.github.com/repositories/612230/releases" | jq -r ".[0].name")
   curl --silent -o- "https://raw.githubusercontent.com/creationix/nvm/$nvm_version/install.sh" | bash
   echo "source /home/vagrant/.nvm/nvm.sh" >> /home/vagrant/.profile
   source /home/vagrant/.profile
-  node_version=$(nvm ls-remote | tac | grep "Latest LTS" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed -e 's/[^0-9.]//g')
+  node_version=($(nvm ls-remote | tac | grep "Latest LTS" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" | sed -e 's/[^0-9.]//g'))
   nvm install $node_version
   nvm use $node_version
   nvm alias default $node_version
