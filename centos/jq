@@ -1,8 +1,5 @@
 #!/bin/bash
 
 hash jq 2>/dev/null || {
-  wget -O /tmp/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-  chmod +x /tmp/jq
-  cp /tmp/jq /usr/bin
+  dnf install jq -y
 } > /dev/null 2>&1
-

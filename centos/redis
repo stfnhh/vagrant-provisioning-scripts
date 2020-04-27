@@ -1,8 +1,6 @@
 #!/bin/bash
 
 hash redis-cli 2>/dev/null || {
-  yum install epel-release -y
-  yum install redis -y
-  systemctl start redis
-  systemctl enable redis
+  dnf install redis -y
+  systemctl enable --now redis
 } > /dev/null 2>&1

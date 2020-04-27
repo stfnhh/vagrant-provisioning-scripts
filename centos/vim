@@ -1,5 +1,5 @@
 #!/bin/bash
 
 hash vim 2>/dev/null || {
-  yum install -y vim
+  dnf install vim -y
 } > /dev/null 2>&1

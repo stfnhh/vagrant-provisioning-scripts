@@ -1,15 +1,12 @@
 #!/bin/bash
 
 hash docker 2>/dev/null || {
-  yum install -y yum-utils device-mapper-persistent-data lvm2
-  yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  yum makecache fast
-  yum install -y docker-ce
-  yum install -y epel-release
-  yum install -y python-pip
-  pip install docker-compose
-  yum upgrade -y python*
-  systemctl enable docker
-  systemctl start docker
-  usermod -aG docker vagrant
+  dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  dnf install docker-ce --nobest -y
+  systemctl disable firewalld
+  systemctl enable --now docker
+  usermod -a -G docker vagrant
+
+  curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /tmp/docker-compose
+  mv /tmp/docker-compose /usr/local/bin && chmod +x /usr/local/bin/docker-compose
 } > /dev/null 2>&1
