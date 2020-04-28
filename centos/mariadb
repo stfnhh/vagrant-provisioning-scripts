@@ -1,10 +1,12 @@
 #!/bin/bash
 
 hash mysql 2>/dev/null || {
-  yum install -y mariadb-server mariadb mysql-devel
-  systemctl enable mariadb.service
-  systemctl start mariadb.service
-  mysql -uroot -e 'use mysql;UPDATE user SET password=PASSWORD("") WHERE User="root";GRANT ALL PRIVILEGES ON *.* TO "root"@"%" IDENTIFIED BY "" WITH GRANT OPTION;FLUSH PRIVILEGES;'
-  echo "bind-address=0.0.0.0" >> /etc/my.cnf
-  systemctl restart mariadb.service
+  dnf module install mariadb -y
+  echo "bind-address=0.0.0.0" >> /etc/my.cnf.d/mariadb-server.cnf
+  systemctl enable --now mariadb
+  mysql -uroot -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="root" AND `Host`="localhost"; DELETE FROM `user` WHERE `Host` != "%" AND `User`="root"; FLUSH PRIVILEGES;'
+  mysql -uroot -e 'USE mysql; UPDATE `user` SET `password`=PASSWORD("") WHERE User="root";'
 } > /dev/null 2>&1
+
+
+
