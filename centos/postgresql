@@ -4,11 +4,11 @@ hash psql 2>/dev/null || {
   dnf install @postgresql:10 -y
   dnf install postgresql-contrib -y
   postgresql-setup initdb
-  sudo -u postgres psql 2>/dev/null -c "alter user postgres with password 'vagrant'" > /dev/null 2>&1
-  sudo -u postgres createuser -s vagrant > /dev/null 2>&1
   echo "listen_addresses = '*'" >> /var/lib/pgsql/data/postgresql.conf
   echo "host all all 0.0.0.0/0 trust" >> /var/lib/pgsql/data/pg_hba.conf
   sed -i "s/peer/trust/g" /var/lib/pgsql/data/pg_hba.conf
   sed -i "s/ident/trust/g" /var/lib/pgsql/data/pg_hba.conf
   systemctl enable --now postgresql
+  sudo -u postgres psql 2>/dev/null -c "alter user postgres with password 'vagrant'" > /dev/null 2>&1
+  sudo -u postgres createuser -s vagrant > /dev/null 2>&1
 } > /dev/null 2>&1
