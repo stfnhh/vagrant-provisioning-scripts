@@ -1,3 +1,0 @@
-# Debian
-
-Scripts coming soon
