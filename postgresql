@@ -10,4 +10,6 @@ hash psql 2>/dev/null || {
   sed -i "s/peer/trust/g" /var/lib/pgsql/12/data/pg_hba.conf
   sed -i "s/ident/trust/g" /var/lib/pgsql/12/data/pg_hba.conf
   systemctl enable --now postgresql-12
+  sudo -u postgres psql 2>/dev/null -c "alter user postgres with password 'vagrant'" > /dev/null 2>&1
+  sudo -u postgres createuser -s vagrant > /dev/null 2>&1
 } > /dev/null 2>&1
