@@ -6,6 +6,9 @@ hash docker 2>/dev/null || {
   systemctl disable firewalld
   systemctl enable --now docker
   usermod -a -G docker vagrant
+  sed -i "s#fd://#tcp://0.0.0.0:2375#g" /lib/systemd/system/docker.service
+  systemctl daemon-reload
+  service docker restart
 
   curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /tmp/docker-compose
   mv /tmp/docker-compose /usr/local/bin && chmod +x /usr/local/bin/docker-compose
